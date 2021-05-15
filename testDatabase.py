@@ -24,11 +24,17 @@ class TestDataBase(unittest.TestCase):
         data_dict = app_test.create_dataDict_from_API()
         self.assertTrue('data_info' in data_dict, 'message')
 
+    def test_header_daily_columns(self):
+        data_dict = app_test.create_dataDict_from_API()
+        header_daily = app_test.create_header_daily(data_dict)
+        self.assertTrue(len(header_daily) == 14, 'message')
+
     def test_data_daily_columns(self):
         data_dict = app_test.create_dataDict_from_API()
-        data_daily = data_dict['data_daily']
-
-        
+        data_daily_raw = data_dict['data_daily']
+        data_daily = app_test.pull_data_daily_API(data_daily_raw)
+        for row in data_daily:
+            self.assertTrue(len(row) == 14, 'message')
 
 if __name__ == '__main__':
     unittest.main()

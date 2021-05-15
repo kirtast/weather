@@ -2,26 +2,12 @@ import sqlite3
 import app_test
 
 
-
 data_dict = app_test.create_dataDict_from_API()
-data_daily = data_dict['data_daily']
+data_daily_raw = data_dict['data_daily']
+data_daily = app_test.pull_data_daily_API(data_daily_raw)
+header_daily = app_test.create_header_daily(data_dict)
 
-
-
-row = data_daily[0]
-header_daily=list()
-
-for key in row:
-    header_daily.append(key)
-
-print(data_daily[0][header_daily[0]])
-
-row_list = list()
-
-for row in data_daily:
-    for var in row:
-        row_list.append(row[var])
-    print(row_list)
+print(data_daily[0])
 # conn=sqlite3.connect('DB_weather.sqlite')
 # cur=conn.cursor()
 #

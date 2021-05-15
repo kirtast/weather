@@ -49,5 +49,27 @@ def create_dataDict_from_API():
 
     return data_dict
 
+def create_header_daily(data_dict):
+    data_daily = data_dict['data_daily']
+
+    row = data_daily[0]
+    header_daily=list()
+
+    for key in row:
+        header_daily.append(key)
+
+    return header_daily
+
+def pull_data_daily_API(data_daily):
+    row_list = list()
+    data_row = list()
+
+    for row in data_daily:
+        for var in row:
+            row_list.append(row[var])
+        data_row.append(row_list)
+        row_list = list()
+
+    return data_row
 if __name__ == '__main__':
     main()
