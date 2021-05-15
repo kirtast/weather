@@ -7,7 +7,7 @@ cur=conn.cursor()
 cur.executescript('''
 DROP TABLE IF EXISTS Daily;
 DROP TABLE IF EXISTS Hour_Data;
-DROP TABLE IF EXISTS Info;
+DROP TABLE IF EXISTS InfoMeasures;
 DROP TABLE IF EXISTS Daily_Info;
 '''
 )
@@ -65,11 +65,22 @@ for pair in tup_daily:
         str_daily = str_daily + pair[0] + ' ' + pair[1] + ')'
     count = count + 1
 
-print(str_daily)
-# for row in data_daily:
-#     for key in row:
-#         print(key)
-    #print(row['date'])
+#print(str_daily)
+cur.execute(str_daily)
+
+print(data_info)
+str='CREATE TABLE InfoMeasures(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,Measure TEXT UNIQUE, Unit TEXT UNIQUE)'
+cur.execute(str)
+
+# for key in data_info:
+#     print(data_info[key],key)
+# row = data_info[0]
+# header_info=list()
+#
+# for key in row:
+#     header_info.append(key)
+#
+# print(header_info)
 
 # cur.executescript('''
 # CREATE TABLE Daily(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,prio TEXT UNIQUE);
