@@ -34,7 +34,18 @@ class TestDataBase(unittest.TestCase):
         data_daily_raw = data_dict['data_daily']
         data_daily = app_test.pull_data_daily_API(data_daily_raw)
         for row in data_daily:
-            self.assertTrue(len(row) == 14, 'message')
+            self.assertTrue(len(tuple(row)) == 14, 'message')
+
+    def test_strExe_is_str(self):
+        data_dict = app_test.create_dataDict_from_API()
+        header_daily = app_test.create_header_daily(data_dict)
+        strExe = app_test.create_str_pull_daily_data(header_daily)
+        self.assertTrue(isinstance(strExe, str), 'message')
+
+    def test_header_hour_columns(self):
+        data_dict = app_test.create_dataDict_from_API()
+        header_hour = app_test.create_header_hour(data_dict)
+        self.assertTrue(len(header_hour) == 10, 'message')
 
 if __name__ == '__main__':
     unittest.main()

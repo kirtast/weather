@@ -1,20 +1,39 @@
 import sqlite3
 import app_test
 
+# def DB_insert_daily_data():
+#     data_dict = app_test.create_dataDict_from_API()
+#     data_daily_raw = data_dict['data_daily']
+#     data_daily = app_test.pull_data_daily_API(data_daily_raw)
+#     header_daily = app_test.create_header_daily(data_dict)
+#
+#     strExe = app_test.create_str_pull_daily_data(header_daily)
+#
+#     conn=sqlite3.connect('DB_weather.sqlite')
+#     cur=conn.cursor()
+#
+#     for row in data_daily:
+#         cur.execute(strExe,tuple(row))
+#
+#     conn.commit()
+#     cur.close()
+
 
 data_dict = app_test.create_dataDict_from_API()
-data_daily_raw = data_dict['data_daily']
-data_daily = app_test.pull_data_daily_API(data_daily_raw)
-header_daily = app_test.create_header_daily(data_dict)
+data_hour_raw = data_dict['data_hour']
+header_hour = app_test.create_header_hour(data_dict)
 
-print(data_daily[0])
+print(header_hour)
+# strExe = app_test.create_str_pull_daily_data(header_daily)
+#
 # conn=sqlite3.connect('DB_weather.sqlite')
 # cur=conn.cursor()
 #
+# for row in data_daily:
+#     cur.execute(strExe,tuple(row))
 #
 # conn.commit()
 # cur.close()
-
 
 # #cur.execute('SELECT Track.title, Album.title, Artist.name, Genre.name FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.genre_id=Genre.id AND Track.album_id=Album.id AND Album.artist_id=Artist.id')
 #

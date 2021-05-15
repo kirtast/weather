@@ -60,6 +60,16 @@ def create_header_daily(data_dict):
 
     return header_daily
 
+def create_header_hour(data_dict):
+    data_hour = data_dict['data_hour']
+    data_hour_test=data_hour['hour1']
+
+    header_hour=list()
+    for key in data_hour_test:
+        header_hour.append(key)
+
+    return header_hour
+
 def pull_data_daily_API(data_daily):
     row_list = list()
     data_row = list()
@@ -71,5 +81,25 @@ def pull_data_daily_API(data_daily):
         row_list = list()
 
     return data_row
+
+def create_str_pull_daily_data(header_daily):
+    strInsert1 = 'INSERT OR IGNORE INTO Daily('
+    strInsert2 = 'VALUES ('
+    data_daily_row = 'row'
+    count = 1
+
+    for head in header_daily:
+        if count < len(header_daily):
+            strInsert1 = strInsert1 + head + ', '
+            strInsert2 = strInsert2 + '?,'
+        else:
+            strInsert1 = strInsert1 + head + ') '
+            strInsert2 = strInsert2 + '?)'
+        count = count + 1
+
+    strExe = strInsert1+strInsert2
+
+    return strExe
+
 if __name__ == '__main__':
     main()
