@@ -17,5 +17,37 @@ def create_url_API(lan,API_KEY,location):
 def get_response_API(url_main):
     return requests.get(url_main)
 
+def create_dataDict_from_API():
+    vars = create_home_loc()
+    url_main = create_url_API(vars['lan'],vars['API_KEY'],vars['location'])
+    response = get_response_API(url_main)
+    data = response.json()
+
+    data_daily = list()
+    data_hour = list()
+    data_info = list()
+    data_daily_info = list()
+
+    data_dict=dict()
+
+    keys = list()
+    for key in data:
+        if not key=='copyright' and not key=='web' and not key=='language' and not key=='locality' and not key=='use':
+            keys.append(key)
+
+    for key in keys:
+        if key=='information':
+            data_info=data[key]
+        elif key=='day1' or key=='day2' or key=='day3' or key=='day4' or key=='day5' or key=='day6' or key=='day7':
+            data_daily.append(data[key])
+        elif key == 'hour_hour':
+            data_hour=data[key]
+
+    data_dict['data_info'] = data_info
+    data_dict['data_daily'] = data_daily
+    data_dict['data_hour'] = data_hour
+
+    return data_dict
+
 if __name__ == '__main__':
     main()
