@@ -1,6 +1,8 @@
 import sqlite3
 import app_test
 from shutil import copyfile
+import os
+import datetime
 
 def DB_insert_daily_data():
     data_dict = app_test.create_dataDict_from_API()
@@ -169,6 +171,7 @@ def DB_initialize():
 def DB_backups():
     user = os.getlogin()
     if user == 'Usuario':
+        now = datetime.datetime.now()
         src = 'C:/Users/Usuario/github/weather/DB_weather.sqlite'
         dst = 'C:/Users/Usuario/github/backup/DB_weather_' + (now.strftime("%Y%m%d%H%M%S")) + '.sqlite'
         copyfile(src, dst)
