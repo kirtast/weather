@@ -23,7 +23,19 @@ data_dict = app_test.create_dataDict_from_API()
 data_hour_raw = data_dict['data_hour']
 header_hour = app_test.create_header_hour(data_dict)
 
-print(header_hour)
+strExe = app_test.create_str_pull_hour_data(header_hour)
+#print(strExe)
+data_hour_list = list()
+row_data_hour = list()
+for row in data_hour_raw:
+    for header in header_hour:
+        row_data_hour.append(data_hour_raw[row][header])
+    data_hour_list.append(row_data_hour)
+    row_data_hour = list()
+
+
+for row in data_hour_list:
+    print(row)  
 # strExe = app_test.create_str_pull_daily_data(header_daily)
 #
 # conn=sqlite3.connect('DB_weather.sqlite')
