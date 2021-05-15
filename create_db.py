@@ -34,7 +34,9 @@ for key in keys:
     elif key == 'hour_hour':
         data_hour=data[key]
 
-#data_daily = json.loads(data_daily)
+#===============================================================================
+#=================== APARTADO DE DAILY =========================================
+#===============================================================================
 row = data_daily[0]
 header_daily=list()
 
@@ -68,8 +70,16 @@ for pair in tup_daily:
 #print(str_daily)
 cur.execute(str_daily)
 
+#===============================================================================
+#=================== APARTADO DE InfoMeasures ==================================
+#===============================================================================
 str='CREATE TABLE InfoMeasures(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,Measure TEXT UNIQUE, Unit TEXT)'
 cur.execute(str)
+for key in data_info:
+    cur.execute(app_test.create_str_pull_info_data(data_info),tuple([key,data_info[key]]))
+#===============================================================================
+#=================== APARTADO DE HOURS =========================================
+#===============================================================================
 
 data_hour_test=data_hour['hour1']
 
@@ -104,6 +114,9 @@ for pair in tup_hour:
 
 cur.execute(str_hour)
 
+#===============================================================================
+#=================== APARTADO DE InfoMeasuresHour ==============================
+#===============================================================================
 str='CREATE TABLE InfoMeasuresHour(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,MeasureName TEXT UNIQUE, IndexMeasure INTEGER)'
 cur.execute(str)
 

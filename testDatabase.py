@@ -61,6 +61,11 @@ class TestDataBase(unittest.TestCase):
         strExe = app_test.create_str_pull_hour_data(header_hour)
         self.assertTrue(isinstance(strExe, str), 'message')
 
+    def test_strExe_info_is_str(self):
+        data_dict = app_test.create_dataDict_from_API()
+        header_info = app_test.create_header_hour(data_dict)
+        strExe = app_test.create_str_pull_info_data(header_info)
+        self.assertTrue(isinstance(strExe, str), 'message')
 
 if __name__ == '__main__':
     unittest.main()

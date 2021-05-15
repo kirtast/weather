@@ -70,6 +70,16 @@ def create_header_hour(data_dict):
 
     return header_hour
 
+def create_header_info(data_dict):
+    data_info = data_dict['data_info']
+
+    header_info=list()
+    for key in data_info:
+        header_info.append(key)
+
+    return header_info
+
+
 def pull_data_daily_API(data_daily):
     row_list = list()
     data_row = list()
@@ -90,7 +100,7 @@ def pull_data_hour_API(data_hour_raw,header_hour):
             row_data_hour.append(data_hour_raw[row][header])
         data_hour_list.append(row_data_hour)
         row_data_hour = list()
-        
+
     return data_hour_list
 
 def create_str_pull_daily_data(header_daily):
@@ -107,6 +117,13 @@ def create_str_pull_daily_data(header_daily):
             strInsert2 = strInsert2 + '?)'
         count = count + 1
 
+    strExe = strInsert1+strInsert2
+
+    return strExe
+
+def create_str_pull_info_data(header_info):
+    strInsert1 = 'INSERT OR IGNORE INTO InfoMeasures(Measure,Unit) '
+    strInsert2 = 'VALUES (?,?)'
     strExe = strInsert1+strInsert2
 
     return strExe
@@ -128,7 +145,6 @@ def create_str_pull_hour_data(header_hour):
     strExe = strInsert1+strInsert2
 
     return strExe
-
 
 
 if __name__ == '__main__':

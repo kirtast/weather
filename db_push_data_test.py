@@ -1,51 +1,51 @@
 import sqlite3
 import app_test
 
-# def DB_insert_daily_data():
-#     data_dict = app_test.create_dataDict_from_API()
-#     data_daily_raw = data_dict['data_daily']
-#     data_daily = app_test.pull_data_daily_API(data_daily_raw)
-#     header_daily = app_test.create_header_daily(data_dict)
-#
-#     strExe = app_test.create_str_pull_daily_data(header_daily)
-#
-#     conn=sqlite3.connect('DB_weather.sqlite')
-#     cur=conn.cursor()
-#
-#     for row in data_daily:
-#         cur.execute(strExe,tuple(row))
-#
-#     conn.commit()
-#     cur.close()
+def DB_insert_daily_data():
+    data_dict = app_test.create_dataDict_from_API()
+    data_daily_raw = data_dict['data_daily']
+    data_daily = app_test.pull_data_daily_API(data_daily_raw)
+    header_daily = app_test.create_header_daily(data_dict)
 
+    strExe = app_test.create_str_pull_daily_data(header_daily)
 
-data_dict = app_test.create_dataDict_from_API()
-data_hour_raw = data_dict['data_hour']
-header_hour = app_test.create_header_hour(data_dict)
+    conn=sqlite3.connect('DB_weather.sqlite')
+    cur=conn.cursor()
 
-strExe = app_test.create_str_pull_hour_data(header_hour)
-#print(strExe)
-data_hour_list = list()
-row_data_hour = list()
-for row in data_hour_raw:
-    for header in header_hour:
-        row_data_hour.append(data_hour_raw[row][header])
-    data_hour_list.append(row_data_hour)
+    for row in data_daily:
+        cur.execute(strExe,tuple(row))
+
+    conn.commit()
+    cur.close()
+
+def DB_insert_hour_data():
+    data_dict = app_test.create_dataDict_from_API()
+    data_hour_raw = data_dict['data_hour']
+    header_hour = app_test.create_header_hour(data_dict)
+
+    strExe = app_test.create_str_pull_hour_data(header_hour)
+
+    data_hour_list = list()
     row_data_hour = list()
+    for row in data_hour_raw:
+        for header in header_hour:
+            row_data_hour.append(data_hour_raw[row][header])
+        data_hour_list.append(row_data_hour)
+        row_data_hour = list()
 
+    conn=sqlite3.connect('DB_weather.sqlite')
+    cur=conn.cursor()
 
-for row in data_hour_list:
-    print(row)  
-# strExe = app_test.create_str_pull_daily_data(header_daily)
-#
-# conn=sqlite3.connect('DB_weather.sqlite')
-# cur=conn.cursor()
-#
-# for row in data_daily:
-#     cur.execute(strExe,tuple(row))
-#
-# conn.commit()
-# cur.close()
+    for row in data_hour_list:
+        cur.execute(strExe,tuple(row))
+
+    conn.commit()
+    cur.close()
+
+if __name__ == '__main__':
+    DB_insert_hour_data()
+    DB_insert_daily_data()
+
 
 # #cur.execute('SELECT Track.title, Album.title, Artist.name, Genre.name FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.genre_id=Genre.id AND Track.album_id=Album.id AND Album.artist_id=Artist.id')
 #
