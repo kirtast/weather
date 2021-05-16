@@ -170,7 +170,7 @@ def DB_initialize():
 
 def DB_backups():
     user = os.getlogin()
-    if user == 'Usuario':
+    if user == 'Usuario' and os.path.isdir('C:/Users/Usuario/github/weather/'):
         now = datetime.datetime.now()
         src = 'C:/Users/Usuario/github/weather/DB_weather.sqlite'
         dst = 'C:/Users/Usuario/github/backup/DB_weather_' + (now.strftime("%Y%m%d%H%M%S")) + '.sqlite'
